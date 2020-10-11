@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{%block title %}Eldsneytis verð - Þórður{%endblock%}
+{%block content %}
+<div class="Wrapper">
+    {% set oneCo = []   %}
+    {%for item in gogn["results"]%}
+        {% if item.company not in oneCo%}
+            {% do oneCo.append(item.company)%}
+            <div class="box">
+                    <a href="/company/{{ item.company }}">
+                        <img src="static/{{ item.company }}.png" title="{{ item.company }}">
+                    </a>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>    
+    <div class="kort">
+        <div class="odyrt">
+            <h4>Ódýrasta bensínið er hjá:</h4>
+            <h2>{{minP[1]}}. kr: {{minP[0]}}</h2>
+            <h4>staðsetning: {{minP[2]}}</h4>
+        </div>
+        <div class="odyrt">
+            <h4>Ódýrasta díselið er hjá:</h4>
+            <h2>{{minD[1]}}. kr: {{minD[0]}}</h2>
+            <h4>staðsetning: {{minD[2]}}</h4>
+        </div>
+    </div>
+<p>Síðast Uppfært: {{gogn.timestampPriceChanges | format_time}}</p>
+{%endblock%}
